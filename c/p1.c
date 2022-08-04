@@ -1,68 +1,82 @@
-// Ismael Sandoval Aguilar
+#include<stdio.h>
 
-#include <stdio.h>
-
-int main ()
+int main()
 {
-    float toneladas_mensuales[12];
-    float promedio_anual = 0;
-    float mayor_produccion = 0;
-    
-    char meses_nombres[12][30] =
+    int matricula;
+    int numal;
+    int i;
+    int cred;
+    int edad;
+
+    int *pm;
+    int *pna;
+    int *pcr;
+    int *pe;
+
+    pcr = &cred;
+    pna = &numal;
+    pe = &edad;
+    pm = &matricula;
+
+    printf("Introduzca el numero de alumnos a inscribirse:\n");
+    scanf("%d",&(*pna));
+
+    for(i=0;i<numal;i++)
     {
-        "Enero",
-        "Febrero",
-        "Marzo",
-        "Abril",
-        "Mayo",
-        "Junio",
-        "Julio",
-        "Agosto",
-        "Septiembre",
-        "Octubre",
-        "Noviembre",
-        "Diciembre"
-    };
+        float pag1=0,pag2=0,pag3=0,pag=0;
+        float desc;
+        float *pp1=&pag1;
+        float *pp2=&pag2;
+        float *pp3=&pag3;
+        float *pp=&pag;
+        float *pde=&desc;
 
-    int meses_superiores = 0;
-    int meses = 0;
-    int mes_productivo = 0;
+        printf("\n\nMatricula del alumno %d:\n",i+1);
+        scanf("%d",&(*pm));
+        printf("\nIntroduzca la edad:\n");
+        scanf("%d",&(*pe));
+        printf("\nIntroduzca el total de creditos a inscribir del alumno %d con matricula: %d\n",i+1,*(pm));
+        scanf("%d",&(*pcr));
 
-    for (meses = 0; meses < 12; meses++)
-    {
-        printf("Ingresar las toneladas de cereal del mes de %s:\n", meses_nombres[meses]);
-        scanf("%f", &toneladas_mensuales[meses]);
-
-        promedio_anual += toneladas_mensuales[meses];
-    }
-
-    promedio_anual = promedio_anual / 12; 
-
-    for (meses = 0; meses < 12; meses++)
-    {
-        if (toneladas_mensuales[meses] > promedio_anual)
+        if(cred > 0 && cred < 21)
         {
-            meses_superiores++;
+            pag1=*(pcr) * 150;
         }
-        
-        if (toneladas_mensuales[meses] > mayor_produccion)
-        {
-            mayor_produccion = toneladas_mensuales[meses];
-        }
-    }
 
-    for (meses = 0; meses < 12; meses++)
-    {
-        if (mayor_produccion == toneladas_mensuales[meses])
+        if(cred > 0 && cred < 36)
         {
-            mes_productivo = meses;
+            pag1=20*150;
+            pag2=(*(pcr) - 20) * 250;
         }
+
+        if(cred >= 36)
+        {
+            pag1=20*150;
+            pag2=15*250;
+            pag3=(*(pcr) - 35) * 350;
+        }
+
+        if(edad < 20)
+        {
+            desc=(*(pp2) * 10) / 100;
+            pag2= *(pp2) - *(pde);
+        }
+
+        if(edad > 40)
+        {
+            desc=(*(pp3) * 5) / 100;
+            pag3= *(pp3) - *(pde);
+        }
+
+        if(edad > 20 && edad < 40)
+        {
+            desc=(*(pp1) * 20) / 100;
+            pag1= *(pp1) - *(pde);
+        }
+
+        pag=*(pp1) + *(pp2) + *(pp3);
+        printf("\n\nPago total del alumno %d con matricula %d: %.2f\n",i+1,*(pm),*(pp));
     }
-    
-    printf("\nPromedio anual de toneladas cosechadas: %0.2f\n", promedio_anual);
-    printf("Numero de meses con una cosecha superior al promedio: %d\n", meses_superiores);
-    printf("Mayor produccion mensual: %0.2f\n", mayor_produccion);
-    printf("Mes mas productivo: %s\n", meses_nombres[mes_productivo]);
 
     return 0;
 }
